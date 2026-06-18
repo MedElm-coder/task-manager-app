@@ -290,3 +290,73 @@
   margin-bottom: 16px;
   font-size: 0.88rem;
 }
+
+.app-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.app-header h1 {
+  margin-bottom: 0;
+}
+
+.task-count {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.filter-btn:hover {
+  border-color: #353b48;
+  color: var(--text);
+}
+
+.filter-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filter-count {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+.filter-active .filter-count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.state-msg {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 32px 0;
+}

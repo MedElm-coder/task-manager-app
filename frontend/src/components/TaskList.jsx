@@ -6,7 +6,7 @@ const STATUS_LABELS = {
 
 function TaskList({ tasks, onEdit, onDelete }) {
   if (tasks.length === 0) {
-    return <p>No tasks yet. Add one above.</p>;
+    return <p className="state-msg">No tasks here.</p>;
   }
 
   return (

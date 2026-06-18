@@ -2,14 +2,15 @@ import { useState, useEffect } from "react";
 import api from "./api/axios";
 import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
+import FilterBar from "./components/FilterBar";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("all");
 
-  // Fetch all tasks once on mount
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -27,11 +28,8 @@ function App() {
     }
   };
 
-  // CREATE or UPDATE
   const handleSubmit = async (formData) => {
-    // Normalize empty due_date to null so Laravel accepts it
     const payload = { ...formData, due_date: formData.due_date || null };
-
     try {
       if (editingTask) {
         const res = await api.put(`/tasks/${editingTask.id}`, payload);
@@ -49,9 +47,7 @@ function App() {
     }
   };
 
-  const handleEdit = (task) => {
-    setEditingTask(task);
-  };
+  const handleEdit = (task) => setEditingTask(task);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this task?")) return;
@@ -64,13 +60,20 @@ function App() {
     }
   };
 
-  const handleCancel = () => {
-    setEditingTask(null);
-  };
+  const handleCancel = () => setEditingTask(null);
+
+  // Derived: tasks matching the active filter
+  const filteredTasks =
+    filter === "all" ? tasks : tasks.filter((t) => t.status === filter);
 
   return (
     <div className="task-list">
-      <h1>TaskFlow</h1>
+      <header className="app-header">
+        <h1>TaskFlow</h1>
+        <span className="task-count">
+          {tasks.length} {tasks.length === 1 ? "task" : "tasks"}
+        </span>
+      </header>
 
       <TaskForm
         onSubmit={handleSubmit}
@@ -80,10 +83,20 @@ function App() {
 
       {error && <p className="error-msg">{error}</p>}
 
+      <FilterBar
+        active={filter}
+        onChange={setFilter}
+        tasks={tasks}
+      />
+
       {loading ? (
-        <p>Loading tasks…</p>
+        <p className="state-msg">Loading tasks…</p>
       ) : (
-        <TaskList tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} />
+        <TaskList
+          tasks={filteredTasks}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       )}
     </div>
   );
