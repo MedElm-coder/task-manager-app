@@ -25,13 +25,6 @@ A simple, full-stack task management application. The backend is a Laravel 11 RE
 - Axios for HTTP requests
 - Plain CSS (dark theme)
 
-## Screenshots
-
-### Task list & form
-![Task list and form](screenshots/form.png)
-
-### Filtering by status
-![Status filter](screenshots/filter.png)
 
 ## Project Structure
 
