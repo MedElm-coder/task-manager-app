@@ -17,7 +17,10 @@ function TaskForm({ onSubmit, editingTask, onCancel }) {
         title: editingTask.title || "",
         description: editingTask.description || "",
         status: editingTask.status || "todo",
-        due_date: editingTask.due_date || "",
+        // Laravel returns an ISO datetime; the date input needs YYYY-MM-DD
+        due_date: editingTask.due_date
+          ? editingTask.due_date.split("T")[0]
+          : "",
       });
     } else {
       setForm(EMPTY_FORM);

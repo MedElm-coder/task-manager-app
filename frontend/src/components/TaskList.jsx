@@ -20,7 +20,9 @@ function TaskList({ tasks, onEdit, onDelete }) {
             <span className={`status status-${task.status}`}>
               {STATUS_LABELS[task.status]}
             </span>
-            {task.due_date && <small>Due: {task.due_date}</small>}
+            {task.due_date && (
+              <small>Due: {task.due_date.split("T")[0]}</small>
+            )}
           </div>
 
           <div className="task-buttons">
